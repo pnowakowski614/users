@@ -35,7 +35,7 @@ const addUser = (company: company, usersCell: HTMLTableCellElement, usersData: u
     usersData.forEach( (user) => {
         if (user.uris.company === company.uri) {
             usersNumber += 1;
-            usersCell.innerHTML += `<pre> ${usersNumber}. ${user.name}, ${user.email} </pre>`
+            usersCell.innerHTML += `${usersNumber}. ${user.name}, ${user.email} <br>`
         }
     });
     usersNumber = 0;

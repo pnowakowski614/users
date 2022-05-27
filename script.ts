@@ -16,8 +16,6 @@ interface company {
     uri: string;
 }
 
-
-
 const createCompanyRow = (company: company) => {
     const row = document.createElement("tr");
     tableBody.appendChild(row);
@@ -36,8 +34,8 @@ const createCompanyRow = (company: company) => {
 const addUser = (company: company, usersCell: HTMLTableCellElement, usersData: user[]) => {
     usersData.forEach( (user) => {
         if (user.uris.company === company.uri) {
-            usersNumber += 1; 
-            usersCell.textContent += `${usersNumber}. ${user.name}, ${user.email}; `
+            usersNumber += 1;
+            usersCell.innerHTML += `<pre> ${usersNumber}. ${user.name}, ${user.email} </pre>`
         }
     });
     usersNumber = 0;

@@ -26,7 +26,7 @@ const addUser = (company, usersCell, usersData) => {
     usersData.forEach((user) => {
         if (user.uris.company === company.uri) {
             usersNumber += 1;
-            usersCell.textContent += `${usersNumber}. ${user.name}, ${user.email}; `;
+            usersCell.innerHTML += `<pre> ${usersNumber}. ${user.name}, ${user.email} </pre>`;
         }
     });
     usersNumber = 0;

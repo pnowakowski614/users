@@ -3,7 +3,7 @@ const usersURL: string = 'http://localhost:3000/users';
 const companiesURL: string = 'http://localhost:3000/companies';
 let usersNumber: number = 0;
 
-interface user {
+interface User {
     name: string;
     email: string;
     uris: {
@@ -11,12 +11,12 @@ interface user {
     };
 }
 
-interface company {
+interface Company {
     name: string;
     uri: string;
 }
 
-const createCompanyRow = (company: company) => {
+const createCompanyRow = (company: Company) => {
     const row = document.createElement("tr");
     tableBody.appendChild(row);
 
@@ -31,7 +31,7 @@ const createCompanyRow = (company: company) => {
     return usersCell;
 }
 
-const addUser = (company: company, usersCell: HTMLTableCellElement, usersData: user[]) => {
+const addUser = (company: Company, usersCell: HTMLTableCellElement, usersData: User[]) => {
     usersData.forEach( (user) => {
         if (user.uris.company === company.uri) {
             usersNumber += 1;
@@ -41,7 +41,7 @@ const addUser = (company: company, usersCell: HTMLTableCellElement, usersData: u
     usersNumber = 0;
 }
 
-const populateTable = (companiesData: company[], usersData: user[]) => {
+const populateTable = (companiesData: Company[], usersData: User[]) => {
     companiesData.forEach( (company) => { 
         const usersCell = createCompanyRow(company);
         addUser(company, usersCell, usersData);
@@ -53,9 +53,8 @@ const loadData = async() => {
         const usersRes = fetch(usersURL).then(resp => resp.json());
         const companiesRes = fetch(companiesURL).then(resp => resp.json());
 
-        let data: [user[], company[]] = await Promise.all([usersRes, companiesRes])
-        let usersData = data[0];
-        let companiesData = data[1];
+        let data: [User[], Company[]] = await Promise.all([usersRes, companiesRes])
+        const [usersData, companiesData] = data;
         
         populateTable(companiesData, usersData);
     }
